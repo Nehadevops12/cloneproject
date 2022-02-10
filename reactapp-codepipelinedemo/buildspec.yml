@@ -19,20 +19,14 @@ phases:
       - echo Compiling the codes
       - npm run build
       - echo Build finished, now moving to S3
-  post_build:
+post_build:
     commands:
     - echo Build completed  on `date`
     - aws s3 sync build/ s3://codepipelines3site --acl public-read
 artifacts:
-  secondary-artifacts:
-    webapp:
-      files:
-        - 'build/*'
-      name: demoProjectArticifactssecondary
-    files:
-    - echo artifacts publised  on `date`
-    - 'build/*'
-    name: demoProjectArticifacts
-    
-
-
+  files:
+    - '**/*'
+  base-directory: base_location
+  name: dev-backend-build_artifact
+  discard-paths: no
+ 
