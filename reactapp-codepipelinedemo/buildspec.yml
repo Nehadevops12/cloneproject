@@ -26,6 +26,7 @@ post_build:
 artifacts:
   files:
     - '**/*'
+    - imagedefinitions.json
   base-directory: base_location
   name: dev-backend-build_artifact
   discard-paths: no
