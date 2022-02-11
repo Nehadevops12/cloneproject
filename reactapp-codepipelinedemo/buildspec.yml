@@ -5,6 +5,7 @@ phases:
       docker: 19
   pre_build:
     commands:
+      - echo Installation docker dependencies started.
       - $(aws ecr get-login --region us-east-1 --no-include-email)
       - REPOSITORY_URI=076912770836.dkr.ecr.us-east-1.amazonaws.com/reactappecrrepo
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
@@ -13,6 +14,7 @@ phases:
     commands:
       - docker build -t $REPOSITORY_URI:latest -f Dockerfile.prod .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - cat imagedefinitions.json
   post_build:
     commands:
       - docker push $REPOSITORY_URI:latest
